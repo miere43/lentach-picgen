@@ -1,0 +1,67 @@
+body {
+	font-family: Arial;
+	font-size: 14px;
+}
+
+hr {
+	border: none;
+	border-bottom: 1px solid #ccc;
+}
+
+a:visited {
+	color: #0000EE;
+}
+
+.wrapper {
+	margin: 0 auto;
+	width: 606px;
+}
+
+#piccanvas {
+	border: 1px solid #F2F2F2;
+	margin: 0 auto;
+}
+
+.pic-control {
+	background-color: #F2F2F2;
+	margin-top: 4px;
+	padding: 10px;
+}
+
+.faq-item {
+	background: #F2F2F2;
+	padding: 4px;
+	margin: 0;
+	line-height: 120%;
+}
+
+.faq-item p {
+	margin: 8px 4px;
+}
+
+.faq-item:nth-child(even) {
+	background: #fff;
+}
+
+.spoiler {
+	text-decoration: none;
+	font-size: 0.8em;
+}
+
+.spoiler:hover {
+	text-decoration: underline;
+}
+
+.error-panel {
+	margin: 0;
+	padding: 0;
+}
+.error {
+	background: #FFD9D9;
+	padding: 6px;
+}
+.error span {
+	display: inline-block;
+	border-left: 2px solid #8E2C2C;
+	padding-left: 4px;
+}

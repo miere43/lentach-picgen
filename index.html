@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<link rel="icon" type="image/png" href="favicon.png">
+	<meta charset="utf-8">
+	<title>Генератор пикч Лентача</title>
+	<link rel="stylesheet" type="text/css" href="master.css">
+</head>
+<body>
+	<div class="wrapper">
+		<canvas width="604" height="269" id="piccanvas">
+		</canvas>
+
+		<div id="error-panel">
+		
+			<!-- App errors will be appended here -->
+		</div>
+
+		<p>
+			<a id="download" href="#" download="lentach-pic.jpg">Скачать пикчу</a> | 
+			<a id="redraw" href="#">Перерисовать</a> | 
+			<a href="https://github.com/miere43/lentach-picgen" target="_blank">GitHub</a>
+		</p>
+		<input type="checkbox" id="autoredraw" checked="true">
+		<label for="autoredraw">Автоматически перерисовывать пикчу</label>
+		<br>
+		<input type="checkbox" id="useplaceholder" checked="true">
+		<label for="useplaceholder">Использовать пикчу Путина вместо незагруженных картинок</label>
+
+		<h2>Левая пикча <a href="javascript:void(0)" data-target="leftPic" class="spoiler">(скрыть)</a></h2>
+		<div id="leftPic">
+
+		</div>
+		<h2>Центральная пикча <a href="javascript:void(0)" data-target="centerPic" class="spoiler">(скрыть)</a></h2>
+		<div id="centerPic">
+
+		</div>
+		<h2>Правая пикча <a href="javascript:void(0)" data-target="rightPic" class="spoiler">(скрыть)</a></h2>
+		<div id="rightPic">
+
+		</div>
+	</div>
+	<script src="js/uiManager.js"></script>
+	<script src="js/piccanvas.js"></script>
+	<script src="js/app.js"></script>
+</body>
+</html>
