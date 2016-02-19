@@ -36,7 +36,12 @@ gulp.task('copy-assets', function() {
 		.pipe(gulp.dest(DEST_DIR + 'assets/'));
 });
 
-gulp.task('default', ['release-html', 'release-css', 'release-bower', 'copy-assets'], function() {
+gulp.task('release-misc', function() {
+	gulp.src('favicon.png')
+		.pipe(gulp.dest(DEST_DIR));
+});
+
+gulp.task('default', ['release-html', 'release-css', 'release-bower', 'release-misc', 'copy-assets'], function() {
 	return gulp.src(['js/*.js'])
 	 	.pipe(minifyJs())
 		.pipe(gulp.dest(DEST_DIR + 'js/'));
