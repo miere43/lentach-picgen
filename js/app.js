@@ -14,6 +14,7 @@
 	var doAutoRedraw = true;
 
 	var canvasBlendMode = null;
+	var rasterFallback = false;
 
 	function putError(message) {
 		var error = document.createElement('div');
@@ -28,9 +29,7 @@
 		var isie = navigator.userAgent.indexOf(' Edge/') !== -1 ||
 		           navigator.userAgent.indexOf(' MSIE ') !== -1 ||
 		           navigator.userAgent.indexOf(' Trident/') !== -1;
-		if (isie) {
-			putError('Internet Explorer/Edge плохо рендерит пикчу, лучше зайти с другого браузера.');
-		}
+
 		var somecanvas = null;
 		var somectx = null;
 		try {
@@ -38,20 +37,22 @@
 			somectx = somecanvas.getContext('2d');
 		} catch (e) {
 			putError('Динамическая отрисовка картинок невозможна в этом браузере: ' + e.message);
+			return;
 		}
-		somectx.globalCompositeOperation = 'source-over';
-		somectx.globalCompositeOperation = 'multiply';
-		if (somectx.globalCompositeOperation !== 'multiply') {
+
+		if (isie) {
+			putError('Internet Explorer/Edge плохо рендерит пикчу, лучше зайти с другого браузера.');
+		}
+
+		try {
 			somectx.globalCompositeOperation = 'source-over';
-			somectx.globalCompositeOperation = 'overlay';
-			if (somectx.globalCompositeOperation !== 'overlay') {
-				putError('Ваш браузер не поддерживает режим наложения multiply и overlay. ' +
-					'Фиолетовые полоски не будут прозрачными.')
-			} else {
-				putError('Ваш браузер не поддерживает режим наложения multiply. ' +
-					'Фиолетовые полоски не будут затемнены, как на Лентаче.');
-				canvasBlendMode = 'overlay';
+			somectx.globalCompositeOperation = 'multiply';
+			if (somectx.globalCompositeOperation !== 'multiply') {
+				rasterFallback = true;
 			}
+		} catch (ex) {
+			putError(ex);
+			rasterFallback = true;
 		}
 
 		if (!(window.File && window.FileReader && window.FileList)) {
@@ -61,21 +62,6 @@
 
 	// Init UI when placeholder image loaded.
 	placeholder.onload = function(loadedCount) {
-		pcanvas.setOverlayBlendMode(canvasBlendMode);
-		pcanvas.setTargetCanvas(document.getElementById("piccanvas"));
-
-		ui.createControls(
-			document.getElementById("leftPic"),
-			document.getElementById("centerPic"),
-			document.getElementById("rightPic"));
-
-		var autoredrawControl = document.getElementById("autoredraw");
-		doAutoRedraw = autoredrawControl.checked;
-
-		autoredrawControl.addEventListener('click', function() {
-			doAutoRedraw = autoredrawControl.checked;
-		})
-
 		function doRedraw(fillBackground) {
 			var leftImageData = ui.serializeControl('left');
 			var centerImageData = ui.serializeControl('center');
@@ -99,7 +85,41 @@
 			}
 			pcanvas.mainDraw(leftImageData, centerImageData, rightImageData);
 		}
+
+		pcanvas.setOverlayBlendMode(canvasBlendMode);
+		pcanvas.setTargetCanvas(document.getElementById("piccanvas"));
+		rasterFallback = true;
+		if (rasterFallback == true) {
+			var left = new Image();
+			var right = new Image();
+			var loaded = 0;
+			function rasterOnload() {
+				loaded++;
+				if (loaded == 2)  {
+					pcanvas.enableRasterFallback(left, right);
+					doRedraw();
+				}
+			}
+			left.onload = rasterOnload;
+			right.onload = rasterOnload;
+			left.src = 'assets/raster-fallback-left.png';
+			right.src = 'assets/raster-fallback-right.png';
+
+		}
+
+		ui.createControls(
+			document.getElementById("leftPic"),
+			document.getElementById("centerPic"),
+			document.getElementById("rightPic"));
+
 		doRedraw();
+
+		var autoredrawControl = document.getElementById("autoredraw");
+		doAutoRedraw = autoredrawControl.checked;
+
+		autoredrawControl.addEventListener('click', function() {
+			doAutoRedraw = autoredrawControl.checked;
+		})
 
 		ui.onchange = function() {
 			if (doAutoRedraw) {
