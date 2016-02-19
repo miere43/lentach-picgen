@@ -1,0 +1,23 @@
+{
+  "name": "lentach-picgen",
+  "homepage": "https://github.com/miere43/lentach-picgen",
+  "authors": [
+    "miere43 <x.miere@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "html5shiv": "^3.7.3",
+    "respond": "^1.4.2"
+  }
+}
