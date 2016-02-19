@@ -2,7 +2,6 @@
 	Glue for UI and canvas.
 */
 
-
 (function appInit() {
 	var placeholder = new Image();
 	placeholder.src = 'assets/putin.jpg';
@@ -104,7 +103,6 @@
 			right.onload = rasterOnload;
 			left.src = 'assets/raster-fallback-left.png';
 			right.src = 'assets/raster-fallback-right.png';
-
 		}
 
 		ui.createControls(
@@ -119,13 +117,13 @@
 
 		autoredrawControl.addEventListener('click', function() {
 			doAutoRedraw = autoredrawControl.checked;
-		})
+		});
 
 		ui.onchange = function() {
 			if (doAutoRedraw) {
 				doRedraw();
 			}
-		}
+		};
 
 		document.getElementById("redraw").addEventListener('click', function() {
 			doRedraw();
