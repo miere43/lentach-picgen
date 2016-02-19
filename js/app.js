@@ -87,7 +87,6 @@
 
 		pcanvas.setOverlayBlendMode(canvasBlendMode);
 		pcanvas.setTargetCanvas(document.getElementById("piccanvas"));
-		rasterFallback = true;
 		if (rasterFallback == true) {
 			var left = new Image();
 			var right = new Image();
