@@ -14,8 +14,8 @@ PCanvas.prototype._drawCircleClippedImage = function(pos, imageData) {
 	var c = this.context;
 	var image = imageData.image;
 
-	var x = pos.x - (image.width) / 2 + imageData.offset.x;
-	var y = pos.y - (image.height) / 2 + imageData.offset.y;
+	var x = pos.x - (image.width * imageData.scale.x) / 2 + imageData.offset.x;
+	var y = pos.y - (image.height * imageData.scale.y) / 2 + imageData.offset.y;
 
 	c.drawImage(image, x, y, 
 		image.width * imageData.scale.x, image.height * imageData.scale.y);
