@@ -2,7 +2,7 @@
 Генерация пикчи к новостям как на Лентаче. Пример:
 ![](http://i.imgur.com/5UINA7g.jpg)
 
-[Пощёлкать в лайве](http://miere.ru/shit/lentach-picture-generator). [Можно и на Лентач зайти](https://vk.com/oldlentach).
+[Пощёлкать в лайве](http://miere.ru/projects/lentach-picgen). [Можно и на Лентач зайти](https://vk.com/oldlentach).
 
 ## Что есть
 * Позиционирование и масштабирование картинок.
