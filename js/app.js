@@ -60,8 +60,8 @@
 	})();
 
 	// Init UI when placeholder image loaded.
-	placeholder.onload = function(loadedCount) {
-		function doRedraw(fillBackground) {
+	placeholder.onload = function() {
+		function doRedraw() {
 			var leftImageData = ui.serializeControl('left');
 			var centerImageData = ui.serializeControl('center');
 			var rightImageData = ui.serializeControl('right');
@@ -75,18 +75,14 @@
 					rightImageData.image = placeholder;
 			}
 
-			if (fillBackground) {
-				pcanvas.context.fillStyle = '#fff';
-				pcanvas.context.rect(0, 0, pcanvas.canvas.width, pcanvas.canvas.height);
-				pcanvas.context.fill();
-			} else {
-				pcanvas.context.clearRect(0, 0, pcanvas.canvas.width, pcanvas.canvas.height);
-			}
 			pcanvas.mainDraw(leftImageData, centerImageData, rightImageData);
 		}
 
 		pcanvas.setOverlayBlendMode(canvasBlendMode);
 		pcanvas.setTargetCanvas(document.getElementById("piccanvas"));
+		pcanvas.context.fillStyle = '#fff';
+		pcanvas.context.rect(0, 0, pcanvas.canvas.width, pcanvas.canvas.height);
+		pcanvas.context.fill();
 		if (rasterFallback == true) {
 			var left = new Image();
 			var right = new Image();
@@ -134,7 +130,7 @@
 		}, false);
 
 		document.getElementById("download").addEventListener('click', function() {
-			doRedraw(true);
+			doRedraw();
 			var dataUrl = pcanvas.canvas.toDataURL('image/jpeg');
 			this.href = dataUrl;
 		}, false);
