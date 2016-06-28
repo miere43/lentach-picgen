@@ -54,9 +54,9 @@ PCanvas.prototype._setRectGrayscale = function(pos, radius) {
 
 	var length = data.length;
 	for (var i = 0; i < length; i += 4) {
-		var brightness = 0.34 * data[i] + 
-						 0.5  * data[i + 1] +
-						 0.16 * data[i + 2];
+		var brightness = 0.2126 * data[i] + 
+						 0.7152 * data[i + 1] +
+						 0.0722 * data[i + 2];
 		data[i] = brightness;
 		data[i + 1] = brightness;
 		data[i + 2] = brightness;
